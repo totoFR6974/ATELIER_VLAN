@@ -156,7 +156,7 @@ PC1 → PC2
 👉 Doit fonctionner
 
 
-![Screenshot Actions](Actions_Button.jpg)
+![Screenshot Actions](PC1-PC2.jpg)
 
 ---
 
@@ -164,7 +164,7 @@ PC1 → PC2
 PC1 → PC3  
 👉 Fonctionne uniquement grâce au routeur
 
-* * Copie d'écran ici * *  
+![Screenshot Actions](PC1-PC3.jpg) 
   
 ---
 
