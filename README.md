@@ -170,10 +170,17 @@ PC1 → PC3
 
 # ❓ Questions de réflexion
 
-1. Pourquoi PC1 ne voit-il pas PC3 sans routeur ? -> Répondez directement sur ce Readme.md 
-2. Quel rôle joue le masque /24 ? -> Répondez directement sur ce Readme.md  
-3. Que se passe-t-il si VLAN 10 et VLAN 20 ont le même réseau IP ? -> Répondez directement sur ce Readme.md  
-4. Pourquoi un trunk est-il nécessaire ? -> Répondez directement sur ce Readme.md
+1. Pourquoi PC1 ne voit-il pas PC3 sans routeur ?
+PC1 et PC3 sont dans des domaines de broadcast différents (VLAN) et dans des sous-réseaux IP différents. Le switch (niveau 2) isole strictement les VLANs. Sans routeur (niveau 3) pour faire le lien entre les deux sous-réseaux, la communication est impossible.
+
+2. Quel rôle joue le masque /24 ?
+Le masque /24 indique que les 24 premiers bits de l'adresse IP définissent la partie réseau et les 8 derniers bits la partie hôte. Cela fixe la taille du réseau à 254 hôtes maximum (adresses de .1 à .254).
+
+3. Que se passe-t-il si VLAN 10 et VLAN 20 ont le même réseau IP ?
+Le routage devient impossible. Le routeur ne peut pas connecter deux interfaces (physiques ou virtuelles) configurées sur le même sous-réseau logique. De plus, les PC croiront être sur le même LAN et enverront des requêtes ARP qui seront bloquées par la frontière des VLANs.
+
+4. Pourquoi un trunk est-il nécessaire ?
+Le trunk permet de faire passer le trafic de plusieurs VLANs sur un seul lien physique entre le switch et le routeur. Il utilise le protocole 802.1Q pour ajouter une étiquette (tag) aux trames, permettant au routeur de distinguer le trafic du VLAN 10 de celui du VLAN 20.
 
 ---
 
@@ -186,9 +193,12 @@ Changer VLAN 10 en :
 ```
 
 Questions :
-- Combien d’hôtes max ?  
-- Quelle plage IP valide ?  
+- Combien d’hôtes max ?
+- 126 hotes
+- Quelle plage IP valide ?
+-  De 192.168.10.1 à 192.168.10.126
 - Peut-on encore communiquer avec VLAN 20 ?
+- Oui. Le changement de masque réduit la taille du réseau VLAN 10, mais n'empêche pas le routage vers le VLAN 20, tant que la passerelle (GW) est configurée correctement avec le nouveau masque /25.
 
 ---
 
